@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """ This module defines BaseModel Class for our hbnb clone """
 import uuid
-from models import storage
 from datetime import datetime
 import models
+
 
 date_time = "%Y-%m-%dT%H:%M:%S.%f"
 
