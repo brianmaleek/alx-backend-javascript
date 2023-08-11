@@ -2,12 +2,22 @@
 """ This module defines a command interpreter """
 
 import cmd
-
+from models import storage
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+from models.place import Place
+import re
 
 class HBNBCommand(cmd.Cmd):
     """ Command interpreter class """
     prompt = '(hbnb) '
 
+    classes = ["BaseModel", "User", "State", "City", "Amenity", "Place","Review"]
+        
     def do_create(self, arg):
         """
         Creates a new instance of BaseModel
@@ -16,13 +26,60 @@ class HBNBCommand(cmd.Cmd):
         """
         if not arg:
             print("** class name missing **")
-        elif arg != "BaseModel":
+        elif arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
-            from models.base_model import BaseModel
-            new_instance = BaseModel()
-            new_instance.save()
-            print(new_instance.id)
+            x = eval(arg + "()")
+            print(x.id)
+            x.save()
+
+    def do_show(self, arg):
+        """ Prints the string representation of an instance """
+        if not arg:
+            print("** class name missing **")
+        elif arg.split()[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        elif len(arg.split()) < 2:
+            print("** instance id missing **")
+        else:
+            key = arg.split()[0] + "." + arg.split()[1]
+            for k, v in storage.all().items():
+                if k == key:
+                    print(v)
+                    return
+            print("** no instance found **")
+
+    def do_destroy(self, arg):
+
+        """ Deletes instance based on class name and id """   
+        if not arg:
+            print("** class name missing **")
+        elif arg.split()[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        elif len(arg.split()) < 2:
+            print("** instance id missing **")
+        else:
+            key = arg.split()[0] + "." + arg.split()[1]
+            for k, v in storage.all().items():
+                if k == key:
+                    del storage.all()[k]
+                    storage.save()
+                    return
+            print("** no instance found **")       
+
+    def do_all(self, arg):
+
+        """ Prints all string representation of all instances """
+
+        if not arg:
+            for k, v in storage.all().items():
+                print(v)
+        elif arg in HBNBCommand.classes:
+            for k, v in storage.all().items():
+                if arg in k:
+                    print(v)
+        else:
+            print("** class doesn't exist **")            
 
     def do_quit(self, arg):
         """ Quit command to exit the program """
