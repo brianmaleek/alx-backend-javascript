@@ -79,7 +79,30 @@ class HBNBCommand(cmd.Cmd):
                 if arg in k:
                     print(v)
         else:
-            print("** class doesn't exist **")            
+            print("** class doesn't exist **")
+
+    def do_update(self, arg):
+    
+        """ Updates an instance based on the class name and id """
+
+        if not arg:
+            print("** class name missing **")
+        elif arg.split()[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        elif len(arg.split()) < 2:
+            print("** instance id missing **")
+        elif len(arg.split()) < 3:
+            print("** attribute name missing **")
+        elif len(arg.split()) < 4:
+            print("** value missing **")
+        else:
+            key = arg.split()[0] + "." + arg.split()[1]
+            for k, v in storage.all().items():
+                if k == key:
+                    setattr(v, arg.split()[2], arg.split()[3])
+                    storage.save()
+                    return
+            print("** no instance found **")
 
     def do_quit(self, arg):
         """ Quit command to exit the program """
