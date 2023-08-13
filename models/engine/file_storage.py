@@ -13,7 +13,8 @@ from models.place import Place
 
 class FileStorage:
     """
-    class that serializes instances to a JSON file and deserializes JSON file to instances
+    class that serializes instances to a JSON
+    file and deserializes JSON file to instances
     """
 
     __file_path = "file.json"
@@ -39,7 +40,10 @@ class FileStorage:
         try:
             with open(self.__file_path, "r") as read_file:
                 n_dict = json.load(read_file)
-            for obj in n_dict.keys():
-                FileStorage.__objects[obj] = eval(n_dict[obj]["__class__"])(**n_dict[obj])
+            for obj_id, obj_data in n_dict.items():
+                class_name = obj_data["__class__"]
+                class_ = globals()[class_name]
+                instance = class_(**obj_data)
+                FileStorage.__objects[obj_id] = instance
         except FileNotFoundError:
             pass

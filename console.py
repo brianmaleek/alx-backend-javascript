@@ -12,12 +12,21 @@ from models.review import Review
 from models.place import Place
 import re
 
+
 class HBNBCommand(cmd.Cmd):
     """ Command interpreter class """
     prompt = '(hbnb) '
 
-    classes = ["BaseModel", "User", "State", "City", "Amenity", "Place","Review"]
-        
+    classes = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Place": Place,
+        "Review": Review
+        }
+
     def do_create(self, arg):
         """
         Creates a new instance of BaseModel
@@ -51,7 +60,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
 
-        """ Deletes instance based on class name and id """   
+        """ Deletes instance based on class name and id """
         if not arg:
             print("** class name missing **")
         elif arg.split()[0] not in HBNBCommand.classes:
@@ -65,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
                     del storage.all()[k]
                     storage.save()
                     return
-            print("** no instance found **")       
+            print("** no instance found **")
 
     def do_all(self, arg):
 
@@ -82,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_update(self, arg):
-    
+
         """ Updates an instance based on the class name and id """
 
         if not arg:
