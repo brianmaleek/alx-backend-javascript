@@ -111,6 +111,41 @@ class HBNBCommand(cmd.Cmd):
                     return
             print("** no instance found **")
 
+    def do_count(self, arg):
+        """ Counts the number of instances of a class """
+        count = 0
+        for k, v in storage.all().items():
+            if arg in k:
+                count += 1
+        print(count)
+
+    def default(self, arg):
+        """ Allow class.method() syntax"""
+        if not arg:
+            return
+        if arg.split(".")[0] not in HBNBCommand.classes:
+            print("*** Unknown syntax: {}".format(arg))
+            return
+        if arg.split(".")[1] == "all()":
+            self.do_all(arg.split(".")[0])
+        elif arg.split(".")[1] == "count()":
+            self.do_count(arg.split(".")[0])
+        elif arg.split(".")[1][:5] == "show(":
+            self.do_show(arg.split(".")[0] + " " +
+                         arg.split(".")[1][6:-2])
+        elif arg.split(".")[1][:8] == "destroy(":
+            self.do_destroy(arg.split(".")[0] + " " +
+                            arg.split(".")[1][9:-2])
+        elif arg.split(".")[1][:7] == "update(":
+            if "{" in arg.split(".")[1]:
+                self.do_update(arg.split(".")[0] + " " +
+                               arg.split(".")[1][8:-1])
+            else:
+                self.do_update(arg.split(".")[0] + " " +
+                               arg.split(".")[1][8:-1].replace(", ", " "))
+        else:
+            print("*** Unknown syntax: {}".format(arg))
+
     def do_quit(self, arg):
         """ Quit command to exit the program """
         return True
