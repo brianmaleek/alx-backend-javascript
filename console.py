@@ -126,17 +126,22 @@ class HBNBCommand(cmd.Cmd):
         if arg.split(".")[0] not in HBNBCommand.classes:
             print("*** Unknown syntax: {}".format(arg))
             return
-        if arg.split(".")[1] == "all()":
-            self.do_all(arg.split(".")[0])
-        elif arg.split(".")[1] == "count()":
+        if arg.split(".")[1] == "count()":
+            """ if count() method """
             self.do_count(arg.split(".")[0])
+        elif arg.split(".")[1] == "all()":
+            """ if all() method """
+            self.do_all(arg.split(".")[0])
         elif arg.split(".")[1][:5] == "show(":
+            """ if show() method"""
             self.do_show(arg.split(".")[0] + " " +
                          arg.split(".")[1][6:-2])
         elif arg.split(".")[1][:8] == "destroy(":
+            """ if destroy() method """
             self.do_destroy(arg.split(".")[0] + " " +
                             arg.split(".")[1][9:-2])
         elif arg.split(".")[1][:7] == "update(":
+            """ if update() method """
             if "{" in arg.split(".")[1]:
                 self.do_update(arg.split(".")[0] + " " +
                                arg.split(".")[1][8:-1])
