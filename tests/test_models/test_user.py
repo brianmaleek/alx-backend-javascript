@@ -2,8 +2,10 @@
 """ Unittest for User class """
 
 import unittest
+import datetime
 from models.user import User
 from models.base_model import BaseModel
+
 
 class TestUser(unittest.TestCase):
     """ Defines tests for User class """
@@ -41,7 +43,7 @@ class TestUser(unittest.TestCase):
     def test_save(self):
         """ Test that save() adds updated_at attribute """
         self.user.save()
-        self.assertIsInstance(self.user.updated_at, str)
+        self.assertIsInstance(self.user.updated_at, datetime.datetime)
 
     def test_str(self):
         """ Test that str method returns a string """
@@ -81,6 +83,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(self.user.password, "password123")
         self.assertEqual(self.user.first_name, "John")
         self.assertEqual(self.user.last_name, "Smith")
+
 
 if __name__ == "__main__":
     unittest.main()
