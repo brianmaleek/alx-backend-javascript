@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 import guardrail from '../9-try';
 import divideFunction from '../8-try';
 
