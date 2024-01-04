@@ -1,6 +1,7 @@
 export default class Building {
   constructor(sqft) {
     this._sqft = this.validateNumber(sqft, 'sqft');
+    this.evacuationWarningMessage();
   }
 
   // Getters and setters for sqft
@@ -15,7 +16,9 @@ export default class Building {
   // Abstract method - must be implemented by subclasses
   // eslint-disable-next-line class-methods-use-this
   evacuationWarningMessage() {
-    throw new Error('Class extending Building must override evacuationWarningMessage');
+    if (this.constructor !== Building) {
+      throw new Error('Class extending Building must override evacuationWarningMessage');
+    }
   }
 
   // Validate number
