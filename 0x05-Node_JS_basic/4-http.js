@@ -5,7 +5,7 @@ const hostname = '127.0.0.1';
 const port = 1245;
 
 // Create HTTP server
-const app = http.createServer((_, res) => {
+const app = http.createServer((req, res) => {
   // Set the response HTTP header with HTTP status and Content type
   res.statusCode = 200;
   // Send response headers
