@@ -6,11 +6,7 @@ process.stdin.on('data', (data) => {
 
   // Display the input back to the user
   process.stdout.write(`Your name is: ${inputData}\n`);
-
-  // If stdin is connected to a terminal, exit after processing input
-  if (process.stdin.isTTY) {
-    process.exit();
-  }
+  process.exit();
 });
 
 // If stdin is not connected to a terminal, handle process exit event
