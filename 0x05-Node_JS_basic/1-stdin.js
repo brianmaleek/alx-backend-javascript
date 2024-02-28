@@ -1,8 +1,8 @@
-console.log('Welcome to Holberton School, what is your name?\n');
+process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
 // Create an event listener for stdin data
-process.stdin.on('data', (data) => {
-  const inputData = data.toString().trim();
+process.stdin.on('readable', () => {
+  const inputData = process.stdin.read();
 
   // Display the input back to the user
   process.stdout.write(`Your name is: ${inputData}\n`);
