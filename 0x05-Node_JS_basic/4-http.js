@@ -1,7 +1,7 @@
 const http = require('http');
 
 // Define the hostname and port
-const hostname = '127.0.0.1';
+const hostname = 'localhost';
 const port = 1245;
 
 // Create HTTP server
@@ -11,7 +11,7 @@ const app = http.createServer((req, res) => {
   // Send response headers
   res.setHeader('Content-Type', 'text/plain');
   // Send response body
-  res.end('Hello Holberton School!\n');
+  res.end('Hello Holberton School!');
 });
 
 // Make the server listen on port 1245
