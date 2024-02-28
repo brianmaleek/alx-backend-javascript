@@ -5,13 +5,12 @@ process.stdin.on('readable', () => {
   const inputData = process.stdin.read();
 
   // Display the input back to the user
-  process.stdout.write(`Your name is: ${inputData}\n`);
-  process.exit();
+  if (inputData !== null) {
+    process.stdout.write(`Your name is: ${inputData}\n`);
+  }
 });
 
-// If stdin is not connected to a terminal, handle process exit event
-if (!process.stdin.isTTY) {
-  process.on('exit', () => {
-    process.stdout.write('This important software is now closing\n');
-  });
-}
+// Create an event listener for the end
+process.stdin.on('end', () => {
+  process.stdout.write('This important software is now closing\n');
+});
