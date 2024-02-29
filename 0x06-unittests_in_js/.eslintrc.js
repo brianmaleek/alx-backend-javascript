@@ -18,6 +18,7 @@ module.exports = {
     },
     plugins: ['jest'],
     rules: {
+      'jest/prefer-expect-assertions': 'off',
       'max-classes-per-file': 'off',
       'no-underscore-dangle': 'off',
       'no-console': 'off',
