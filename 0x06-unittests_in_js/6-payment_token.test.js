@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 /* eslint-disable jest/valid-expect */
 // 6-payment_token.test.js
 
@@ -6,18 +7,25 @@
  * It should return a successful response from the API when success is true
  * @return {Promise<void>} A Promise that resolves when the async test is complete
  */
-const { expect } = require('chai');
+const assert = require('assert');
 const getPaymentTokenFromAPI = require('./6-payment_token');
 
+/**
+ * Test suite for the getPaymentTokenFromAPI function.
+ */
 describe('getPaymentTokenFromAPI', () => {
-  it('should return successful response from the API when success is true', () => new Promise((done) => {
-    // Call the function under test with success set to true
+  /**
+   * Test case to verify that the function returns a promise.
+   * @param {Function} done - Callback function to indicate when the test is complete.
+   */
+  it('should return a promise', () => new Promise((done) => {
     getPaymentTokenFromAPI(true)
-      .then((response) => {
-        // Assert that the response is as expected
-        expect(response).to.deep.equal({ data: 'Successful response from the API' });
-        done(); // Call done to indicate that the async test is complete
+      .then((res) => {
+        assert.equal(res.data, 'Successful response from the API');
+        done();
       })
-      .catch((err) => done(err)); // Call done with an error if the promise is rejected
+      .catch((error) => {
+        done(error);
+      });
   }));
 });
