@@ -10,9 +10,6 @@ function getPaymentTokenFromAPI(success) {
     if (success) {
       // Resolve the promise with the successful response object
       resolve({ data: 'Successful response from the API' });
-    } else {
-      // Simulate failure by doing nothing
-      resolve(); // Resolving with undefined
     }
   });
 }
