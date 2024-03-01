@@ -1,12 +1,12 @@
 const http = require('http');
-const { readFile } = require('fs');
+const fs = require('fs');
 
 const hostname = '127.0.0.1';
 const port = 1245;
 
 function countStudents(fileName) {
   return new Promise((resolve, reject) => {
-    readFile(fileName, (err, data) => {
+    fs.readFile(fileName, (err, data) => {
       if (err) {
         reject(new Error('Cannot load the database'));
       } else {
