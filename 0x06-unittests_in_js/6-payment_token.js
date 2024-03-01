@@ -1,17 +1,11 @@
+/* eslint-disable consistent-return */
 // 6-payment_token.js
-
 /**
- * Simulates getting a payment token from an API.
- * @param {boolean} success - Indicates whether the API call should succeed.
- * @returns {Promise<Object>} A Promise that resolves with the API response object.
+ * @module 6-payment_token
+ * @description This module exports a function that returns a promise.
  */
 function getPaymentTokenFromAPI(success) {
-  return new Promise((resolve) => {
-    if (success) {
-      // Resolve the promise with the successful response object
-      resolve({ data: 'Successful response from the API' });
-    }
-  });
+  if (success === true) return Promise.resolve({ data: 'Successful response from the API' });
 }
 
 module.exports = getPaymentTokenFromAPI;
