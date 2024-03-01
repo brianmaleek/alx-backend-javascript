@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-test-callback */
 /* eslint-disable jest/valid-expect */
 // 6-payment_token.test.js
 
@@ -7,15 +8,17 @@
  */
 
 const { expect } = require('chai');
-const getPaymentTokenFromApi = require('./6-payment_token');
+const getPaymentTokenFromAPI = require('./6-payment_token');
 
-describe('getPaymentTokenFromApi', () => {
-  it('checks output of getPaymentTokenFromApi with true as success', () => new Promise((done) => {
-    getPaymentTokenFromApi(true)
+describe('async tests with done', () => {
+  it('should resolve a promise if success === true', (done) => {
+    getPaymentTokenFromAPI(true)
       .then((res) => {
         expect(res).to.include({ data: 'Successful response from the API' });
         done();
       })
-      .catch((err) => done(err));
-  }));
+      .catch((error) => {
+        done(error);
+      });
+  });
 });
